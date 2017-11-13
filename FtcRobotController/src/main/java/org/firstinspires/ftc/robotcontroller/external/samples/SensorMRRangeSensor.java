@@ -39,7 +39,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 /**
  * {@link SensorMRRangeSensor} illustrates how to use the Modern Robotics
  * Range Sensor.
- *
+ *fdaasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsasdfd
  * The op mode assumes that the range sensor is configured with a name of "sensor_range".
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.

@@ -160,7 +160,6 @@ public class SensorColor extends LinearOpMode {
             telemetry.addLine("raw Android color: ")
                     .addData("a", "%02x", Color.alpha(color))
                     .addData("r", "%02x", Color.red(color))
-                    .addData("g", "%02x", Color.green(color))
                     .addData("b", "%02x", Color.blue(color));
 
             // Balance the colors. The values returned by getColors() are normalized relative to the
@@ -187,7 +186,7 @@ public class SensorColor extends LinearOpMode {
             telemetry.update();
 
             // convert the RGB values to HSV values.
-            Color.RGBToHSV(Color.red(color), Color.green(color), Color.blue(color), hsvValues);
+            Color.RGBToHSV(Color.red(color),0, Color.blue(color), hsvValues);
 
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument
@@ -197,6 +196,7 @@ public class SensorColor extends LinearOpMode {
                     relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
                 }
             });
+
         }
     }
 }

@@ -1,18 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-        import android.app.Activity;
-        import android.graphics.Color;
-        import android.view.View;
-
-        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-        import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-        import com.qualcomm.robotcore.hardware.NormalizedRGBA;
-        import com.qualcomm.robotcore.hardware.SwitchableLight;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 /*
  * This is an example LinearOpMode that shows how to use a color sensor in a generic
@@ -22,9 +18,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * If the color sensor has a light which is controllable, you can use the X button on
  * the gamepad to toggle the light on and off.
 */
-@TeleOp(name = "Sensor: Color", group = "Sensor")
+@TeleOp(name = "Sensor: ColorDefinitive", group = "Sensor")
 
-public class SensorColor extends LinearOpMode {
+public class SensorColorDefinitive extends LinearOpMode {
 
     /** The colorSensor field will contain a reference to our color sensor hardware object */
     NormalizedColorSensor colorSensor;
@@ -90,7 +86,7 @@ public class SensorColor extends LinearOpMode {
         // Loop until we are asked to stop
         while (opModeIsActive()) {
             // Check the status of the x button on the gamepad
-            bCurrState = gamepad1.x;
+            bCurrState = gamepad1.a;
 
             // If the button state is different than what it was, then act
             if (bCurrState != bPrevState) {
@@ -106,6 +102,18 @@ public class SensorColor extends LinearOpMode {
 
             // Read the sensor
             NormalizedRGBA colors = colorSensor.getNormalizedColors();
+
+            if (colors.red > colors.blue) {
+                colors.red = 255;
+                colors.blue = 0;
+                colors.green = 0;
+                //colors.alpha = 122;
+            } else {
+                colors.red = 0;
+                colors.blue = 255;
+                colors.green = 0;
+                //colors.alpha = 122;
+            }
 
             /** Use telemetry to display feedback on the driver station. We show the conversion
              * of the colors to hue, saturation and value, and display the the normalized values
@@ -129,6 +137,7 @@ public class SensorColor extends LinearOpMode {
             telemetry.addLine("raw Android color: ")
                     .addData("a", "%02x", Color.alpha(color))
                     .addData("r", "%02x", Color.red(color))
+                    .addData("g", "%02x", Color.green(color))
                     .addData("b", "%02x", Color.blue(color));
 
             // Balance the colors. The values returned by getColors() are normalized relative to the
@@ -155,7 +164,7 @@ public class SensorColor extends LinearOpMode {
             telemetry.update();
 
             // convert the RGB values to HSV values.
-            Color.RGBToHSV(Color.red(color),0, Color.blue(color), hsvValues);
+            Color.RGBToHSV(Color.red(color), Color.green(color), Color.blue(color), hsvValues);
 
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument
@@ -165,7 +174,6 @@ public class SensorColor extends LinearOpMode {
                     relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
                 }
             });
-
         }
     }
 }

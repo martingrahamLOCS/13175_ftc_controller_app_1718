@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="Mecanum Test", group="Iterative Opmode")
 
 public class mecanum extends OpMode
 {
@@ -115,36 +115,41 @@ public class mecanum extends OpMode
             right2Power=0;
         }
 
+        left1Drive.setPower(left1Power);
+        left2Drive.setPower(left2Power);
+        right1Drive.setPower(right1Power);
+        right2Drive.setPower(right2Power);
+
         //Strafing Effects;
-        if(strafe>5){
+        if(strafe>0){
             left1Drive.setDirection(DcMotor.Direction.FORWARD);
             left2Drive.setDirection(DcMotor.Direction.REVERSE);
             right1Drive.setDirection(DcMotor.Direction.FORWARD);
             right2Drive.setDirection(DcMotor.Direction.REVERSE);
         }
-        if(strafe<-5){
+        if(strafe<0){
             left1Drive.setDirection(DcMotor.Direction.REVERSE);
             left2Drive.setDirection(DcMotor.Direction.FORWARD);
             right1Drive.setDirection(DcMotor.Direction.REVERSE);
             right2Drive.setDirection(DcMotor.Direction.FORWARD);
         }
-        if(strafe<-5&&drive<-5){
+        if(strafe<0&&drive<0){
             killLeft1=true;
             left2Drive.setDirection(DcMotor.Direction.FORWARD);
             right1Drive.setDirection(DcMotor.Direction.REVERSE);
             killRight2=true;
-            if(strafe>-4||drive>-4){
+            if(strafe>-0.5||drive>-0.5){
                 killLeft1=false;
                 killRight2=false;
             }
         }
 
-        if(strafe>5&&drive>5){
+        if(strafe>0&&drive>0){
             left1Drive.setDirection(DcMotor.Direction.FORWARD);
             killLeft2=true;
             killRight1=true;
             right2Drive.setDirection(DcMotor.Direction.REVERSE);
-            if(strafe<4||drive<4){
+            if(strafe<0.5||drive<0.5){
                 killLeft2=false;
                 killRight1=false;
 

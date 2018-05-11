@@ -108,38 +108,44 @@ public class mecanum extends OpMode {
         right2Drive.setPower(right2Power);
 
         //Strafing Effects;
-        if(strafe>0){
-            left1Drive.setDirection(DcMotor.Direction.FORWARD);
-            left2Drive.setDirection(DcMotor.Direction.REVERSE);
-            right1Drive.setDirection(DcMotor.Direction.FORWARD);
-            right2Drive.setDirection(DcMotor.Direction.REVERSE);
-        }
+
         if(strafe<0){
+            if(strafe<0&&drive<0){
+                killLeft2=true;
+                left1Drive.setDirection(DcMotor.Direction.REVERSE);
+                right2Drive.setDirection(DcMotor.Direction.FORWARD);
+                killRight1=true;
+            }
+
+            if(strafe<0&&drive>0){
+                killLeft1=true;
+                left2Drive.setDirection(DcMotor.Direction.REVERSE);
+                right1Drive.setDirection(DcMotor.Direction.FORWARD);
+                killRight2=true;
+            }
+
             left1Drive.setDirection(DcMotor.Direction.REVERSE);
             left2Drive.setDirection(DcMotor.Direction.FORWARD);
             right1Drive.setDirection(DcMotor.Direction.REVERSE);
             right2Drive.setDirection(DcMotor.Direction.FORWARD);
         }
-        if(strafe<0&&drive<0){
-            killLeft1=true;
-            left2Drive.setDirection(DcMotor.Direction.FORWARD);
-            right1Drive.setDirection(DcMotor.Direction.REVERSE);
-            killRight2=true;
-            if(strafe>-0.5||drive>-0.5){
-                killLeft1=false;
-                killRight2=false;
+        if(strafe>0){
+            if(strafe>0&&drive>0){
+                killLeft2=true;
+                killRight1=true;
+                left2Drive.setDirection(DcMotor.Direction.REVERSE);
+                right1Drive.setDirection(DcMotor.Direction.FORWARD);
             }
-        }
-
-        if(strafe>0&&drive>0){
+            if(strafe>0&&drive<0){
+                killLeft1=true;
+                killRight2=true;
+                left2Drive.setDirection(DcMotor.Direction.REVERSE);
+                right1Drive.setDirection(DcMotor.Direction.FORWARD);
+            }
             left1Drive.setDirection(DcMotor.Direction.FORWARD);
-            killLeft2=true;
-            killRight1=true;
+            left2Drive.setDirection(DcMotor.Direction.REVERSE);
+            right1Drive.setDirection(DcMotor.Direction.FORWARD);
             right2Drive.setDirection(DcMotor.Direction.REVERSE);
-            if(strafe<0.5||drive<0.5){
-                killLeft2=false;
-                killRight1=false;
-            }
         }
 
 

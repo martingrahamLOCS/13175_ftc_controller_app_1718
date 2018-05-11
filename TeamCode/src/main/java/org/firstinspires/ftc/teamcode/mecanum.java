@@ -5,37 +5,28 @@ package org.firstinspires.ftc.teamcode;
 //https://pdocs.kauailabs.com/navx-micro/examples/field-oriented-drive/;
 //Navx gGyro;
 
-
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
-
-        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.util.ElapsedTime;
-
-
-
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Mecanum Test", group="Iterative Opmode")
 
-public class mecanum extends OpMode
-{
+public class mecanum extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor left1Drive = null;
     private DcMotor right1Drive = null;
     private DcMotor left2Drive =null;
     private DcMotor right2Drive=null;
-  private  double drive;
-   private double strafe;
-   private double turn;
+    private double drive;
+    private double strafe;
+    private double turn;
     private boolean killLeft1=false;
     private boolean killLeft2=false;
     private boolean killRight1=false;
     private boolean killRight2=false;
-
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -48,13 +39,10 @@ public class mecanum extends OpMode
         left2Drive= hardwareMap.get(DcMotor.class,"left_drive2");
         right2Drive = hardwareMap.get(DcMotor.class, "right_drive2");
 
-
         left1Drive.setDirection(DcMotor.Direction.FORWARD);
         left2Drive.setDirection(DcMotor.Direction.FORWARD);
         right1Drive.setDirection(DcMotor.Direction.REVERSE);
         right2Drive.setDirection(DcMotor.Direction.REVERSE);
-
-
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -84,7 +72,6 @@ public class mecanum extends OpMode
         double left2Power;
         double right1Power;
         double right2Power;
-//Setes Power;
 
         drive = -gamepad1.left_stick_y;
         strafe= gamepad1.left_stick_x;
@@ -152,16 +139,8 @@ public class mecanum extends OpMode
             if(strafe<0.5||drive<0.5){
                 killLeft2=false;
                 killRight1=false;
-
-                /*
-                END OF MOTOR CODE
-                BEGIN ELEVATOR
-                 */
-
-
             }
         }
-
 
 
 
@@ -169,6 +148,7 @@ public class mecanum extends OpMode
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors","LeftUpper", left1Power, "Right Upper",right1Power,"Left Lower",left2Power,"Right Lower",right2Power);
         telemetry.addData("Strafe",strafe);
+        telemetry.update();
     }
 
     /*
@@ -178,5 +158,4 @@ public class mecanum extends OpMode
     public void stop() {
 
     }
-
 }
